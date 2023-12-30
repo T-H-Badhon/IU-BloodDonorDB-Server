@@ -3,6 +3,7 @@ import { authRoutes } from '../modules/auth/auth.routes'
 import { userRoutes } from '../modules/user/user.routes'
 import { donorRoutes } from '../modules/donor/donor.routes'
 import { blogPostRoutes } from '../modules/blogPost/blogPost.routes'
+import { adminRoutes } from '../modules/admin/admin.routes'
 
 const router = Router()
 
@@ -21,7 +22,7 @@ const moduleRoutes = [
   },
   {
     path: '/admin',
-    route: abc,
+    route: adminRoutes,
   },
   {
     path: '/blogs',
