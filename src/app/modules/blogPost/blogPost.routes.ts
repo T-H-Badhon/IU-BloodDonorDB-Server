@@ -10,3 +10,5 @@ router.get('/posts/my-posts', blogPostControllers.myPosts)
 router.put('/posts/my-posts/:postId', blogPostControllers.updatePost)
 router.delete('/posts/my-posts/:postId', blogPostControllers.deletePost)
 router.delete('/posts/:postId', blogPostControllers.deletePost)
+
+export const blogPostRoutes = router

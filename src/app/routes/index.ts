@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { authRoutes } from '../modules/auth/auth.routes'
 import { userRoutes } from '../modules/user/user.routes'
 import { donorRoutes } from '../modules/donor/donor.routes'
+import { blogPostRoutes } from '../modules/blogPost/blogPost.routes'
 
 const router = Router()
 
@@ -24,7 +25,7 @@ const moduleRoutes = [
   },
   {
     path: '/blogs',
-    route: abc,
+    route: blogPostRoutes,
   },
   {
     path: '/blood-request',
