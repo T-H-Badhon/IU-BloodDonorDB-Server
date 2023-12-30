@@ -4,6 +4,7 @@ import { userRoutes } from '../modules/user/user.routes'
 import { donorRoutes } from '../modules/donor/donor.routes'
 import { blogPostRoutes } from '../modules/blogPost/blogPost.routes'
 import { adminRoutes } from '../modules/admin/admin.routes'
+import { bloodRequestRoutes } from '../modules/bloodRequest/bloodRequest.routes'
 
 const router = Router()
 
@@ -30,7 +31,7 @@ const moduleRoutes = [
   },
   {
     path: '/blood-request',
-    route: abc,
+    route: bloodRequestRoutes,
   },
 ]
 
