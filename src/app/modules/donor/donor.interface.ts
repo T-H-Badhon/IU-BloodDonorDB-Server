@@ -8,5 +8,4 @@ export type TDonor = {
   address: string
   bloodGroup: TBloodGroup
   isAvailable: boolean
-  isDonor: boolean
 }

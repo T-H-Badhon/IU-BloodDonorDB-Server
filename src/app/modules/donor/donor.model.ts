@@ -27,11 +27,6 @@ const donorSchema = new Schema<TDonor>(
       required: true,
       default: true,
     },
-    isDonor: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
   },
   {
     timestamps: true,

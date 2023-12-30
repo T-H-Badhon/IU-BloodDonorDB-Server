@@ -1,10 +1,27 @@
 import { Router } from 'express'
+import { authRoutes } from '../modules/auth/auth.routes'
 
 const router = Router()
 
 const moduleRoutes = [
   {
-    path: '/abc',
+    path: '/auth',
+    route: authRoutes,
+  },
+  {
+    path: '/donor',
+    route: abc,
+  },
+  {
+    path: '/admin',
+    route: abc,
+  },
+  {
+    path: '/blogs',
+    route: abc,
+  },
+  {
+    path: '/blood-request',
     route: abc,
   },
 ]
