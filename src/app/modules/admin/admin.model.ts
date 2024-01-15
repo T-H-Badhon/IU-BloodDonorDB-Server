@@ -3,7 +3,7 @@ import { TAdmin } from './admin.interface'
 
 const adminSchema = new Schema<TAdmin>(
   {
-    user: {
+    userId: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'user',
@@ -17,6 +17,9 @@ const adminSchema = new Schema<TAdmin>(
     address: {
       type: String,
     },
+    area: {
+      type: String,
+    },
     bloodGroup: {
       type: String,
       enum: ['A+', 'B+', 'AB+', 'O+', 'A+', 'B+', 'AB+', 'O+'],
@@ -25,7 +28,7 @@ const adminSchema = new Schema<TAdmin>(
     isDonor: {
       type: Boolean,
       required: true,
-      default: false,
+      default: true,
     },
   },
   {

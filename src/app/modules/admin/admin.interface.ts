@@ -11,10 +11,11 @@ export type TBloodGroup =
   | 'O+'
 
 export type TAdmin = {
-  user: Types.ObjectId
+  userId: Types.ObjectId
   name: string
   age: number
   address: string
+  area: string
   bloodGroup: TBloodGroup
   isDonor: boolean
 }

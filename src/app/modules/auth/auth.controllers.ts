@@ -3,25 +3,35 @@ import { authServices } from './auth.services'
 
 const registerAdmin = catchAsync(async (req, res) => {
   const { userData, adminData } = req.body
-
+  console.log(req.headers)
   const result = await authServices.registerAdmin(userData, adminData)
 
-  console.log(result)
+  res.status(result?.statusCode as number).json({
+    success: result?.success,
+    statusCode: result?.statusCode,
+    message: result?.message,
+  })
 })
 const registerDonor = catchAsync(async (req, res) => {
   const { userData, donorData } = req.body
 
   const result = await authServices.registerDonor(userData, donorData)
 
-  console.log(result)
+  res.status(result?.statusCode as number).json({
+    success: result?.success,
+    statusCode: result?.statusCode,
+    message: result?.message,
+  })
 })
 
 const login = catchAsync(async (req, res) => {
   const { loginCredential } = req.body
-
+  console.log(loginCredential)
   const result = await authServices.login(loginCredential)
 
-  console.log(result)
+  res.json({
+    result,
+  })
 })
 
 const changePassword = catchAsync(async (req, res) => {

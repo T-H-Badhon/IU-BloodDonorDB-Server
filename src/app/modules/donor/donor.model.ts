@@ -3,16 +3,13 @@ import { TDonor } from './donor.interface'
 
 const donorSchema = new Schema<TDonor>(
   {
-    user: {
+    userId: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'user',
     },
     name: {
       type: String,
-    },
-    age: {
-      type: Number,
     },
     address: {
       type: String,
@@ -21,6 +18,9 @@ const donorSchema = new Schema<TDonor>(
       type: String,
       enum: ['A+', 'B+', 'AB+', 'O+', 'A+', 'B+', 'AB+', 'O+'],
       required: true,
+    },
+    area: {
+      type: String,
     },
     isAvailable: {
       type: Boolean,
