@@ -1,11 +1,11 @@
 import { ErrorRequestHandler } from 'express'
 import { ZodError } from 'zod'
 import { ZodErrorMessageGenerator } from '../errors/ZodError'
-import { MongooseErrorMessageGenerator } from '../errors/mongooseError'
-import { CastErrorMessageGenerator } from '../errors/CastError'
-import { DuplicateErrorMessageGenerator } from '../errors/duplicateError'
 import { AppError } from '../errors/AppError'
 import { AuthError } from '../errors/AuthError'
+import { MongooseErrorMessageGenerator } from '../errors/MongooseError'
+import { CastErrorMessageGenerator } from '../errors/CastError'
+import { DuplicateErrorMessageGenerator } from '../errors/DuplicateError'
 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
