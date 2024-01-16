@@ -8,10 +8,15 @@ import { Donor } from '../donor/donor.model'
 import { Admin } from '../admin/admin.model'
 import jwt from 'jsonwebtoken'
 import { config } from '../../config/config'
+import { hashedPassword } from '../../utilitis/hashedPassword'
+import { matchPassword } from '../../utilitis/matchPassword'
+import { AppError } from '../../errors/AppError'
+import httpStatus from 'http-status'
 
-const registerAdmin = async (userData: Partial<TUser>, adminData: TAdmin) => {
+const registerAdmin = async (userData: TUser, adminData: TAdmin) => {
   userData.passwordChangeAT = new Date()
   userData.role = 'admin'
+  userData.password = await hashedPassword(userData.password)
 
   const session = await mongoose.startSession()
 
@@ -44,9 +49,10 @@ const registerAdmin = async (userData: Partial<TUser>, adminData: TAdmin) => {
     console.log(err)
   }
 }
-const registerDonor = async (userData: Partial<TUser>, donorData: TDonor) => {
+const registerDonor = async (userData: TUser, donorData: TDonor) => {
   userData.passwordChangeAT = new Date()
   userData.role = 'donor'
+  userData.password = await hashedPassword(userData.password)
 
   const session = await mongoose.startSession()
 
@@ -86,18 +92,10 @@ const login = async (loginCredential: TLoginCredential) => {
   const loginUser = await User.findOne({ email }).select('+password')
 
   if (loginUser) {
-    // const isMatched = await matchPassword(password, loginUser.password)
+    const isMatched = await matchPassword(password, loginUser.password)
 
-    // if (!isMatched) {
-    //   throw new AppError(httpStatus.FORBIDDEN, 'password not matched')
-    // }
-
-    if (loginUser.password !== password) {
-      return {
-        success: false,
-        message: 'Wrong Password',
-        statusCode: 404,
-      }
+    if (!isMatched) {
+      throw new AppError(httpStatus.FORBIDDEN, 'password not matched')
     }
 
     const tokenInfo = {
