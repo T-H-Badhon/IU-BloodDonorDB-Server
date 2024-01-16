@@ -8,3 +8,7 @@ export type TChangePasswordCredential = {
   currentPassword: string
   newPassword: string
 }
+
+export type TForgetPassword = {
+  email: string
+}

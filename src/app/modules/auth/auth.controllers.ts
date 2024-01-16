@@ -1,4 +1,5 @@
 import { catchAsync } from '../../utilitis/catchAsync'
+import response from '../../utilitis/response'
 import { authServices } from './auth.services'
 
 const registerAdmin = catchAsync(async (req, res) => {
@@ -6,10 +7,11 @@ const registerAdmin = catchAsync(async (req, res) => {
   console.log(req.headers)
   const result = await authServices.registerAdmin(userData, adminData)
 
-  res.status(result?.statusCode as number).json({
-    success: result?.success,
-    statusCode: result?.statusCode,
-    message: result?.message,
+  response(res, {
+    success: true,
+    statusCode: 201,
+    message: 'Registered Successfull!!',
+    data: result,
   })
 })
 const registerDonor = catchAsync(async (req, res) => {
@@ -17,10 +19,11 @@ const registerDonor = catchAsync(async (req, res) => {
 
   const result = await authServices.registerDonor(userData, donorData)
 
-  res.status(result?.statusCode as number).json({
-    success: result?.success,
-    statusCode: result?.statusCode,
-    message: result?.message,
+  response(res, {
+    success: true,
+    statusCode: 201,
+    message: 'Registered Successfull!!',
+    data: result,
   })
 })
 
@@ -29,28 +32,42 @@ const login = catchAsync(async (req, res) => {
   console.log(loginCredential)
   const result = await authServices.login(loginCredential)
 
-  res.json({
-    result,
+  response(res, {
+    success: true,
+    statusCode: 200,
+    message: 'Login successfully',
+    data: result,
   })
 })
 
 const changePassword = catchAsync(async (req, res) => {
-  const { changePasswordCredential } = req.body
+  const { currentPassword, newPassword } = req.body.changePasswordCredential
+
+  const id = req.user._id
 
   console.log(req.headers)
   console.log(req.body)
 
-  const result = await authServices.changePassword(changePasswordCredential)
+  const result = await authServices.changePassword(
+    currentPassword,
+    newPassword,
+    id,
+  )
 
-  // console.log(result)
+  response(res, result)
 })
 const forgetPassword = catchAsync(async (req, res) => {
-  const { password } = req.body
-  const id = req.user._id
+  const { email } = req.body
+  const auth = req.user
 
-  const result = await authServices.forgetPassword(id, password)
+  const result = await authServices.forgetPassword(email, auth.email, auth._id)
 
-  console.log(result)
+  response(res, {
+    success: true,
+    statusCode: 200,
+    message: 'Reset link send to email',
+    data: result,
+  })
 })
 
 export const authControllers = {
