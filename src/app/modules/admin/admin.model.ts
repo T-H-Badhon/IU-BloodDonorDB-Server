@@ -11,9 +11,6 @@ const adminSchema = new Schema<TAdmin>(
     name: {
       type: String,
     },
-    age: {
-      type: Number,
-    },
     address: {
       type: String,
     },
@@ -26,6 +23,11 @@ const adminSchema = new Schema<TAdmin>(
       required: true,
     },
     isDonor: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+    isAvailable: {
       type: Boolean,
       required: true,
       default: true,
