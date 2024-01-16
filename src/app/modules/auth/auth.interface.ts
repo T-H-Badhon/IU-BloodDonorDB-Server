@@ -6,5 +6,5 @@ export type TLoginCredential = {
 
 export type TChangePasswordCredential = {
   currentPassword: string
-  newpassword: string
+  newPassword: string
 }

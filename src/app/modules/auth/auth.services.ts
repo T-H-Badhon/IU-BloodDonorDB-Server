@@ -110,6 +110,7 @@ const login = async (loginCredential: TLoginCredential) => {
     })
 
     return {
+      role: loginUser.role,
       token,
     }
   } else {

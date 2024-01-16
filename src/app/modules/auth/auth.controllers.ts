@@ -37,9 +37,12 @@ const login = catchAsync(async (req, res) => {
 const changePassword = catchAsync(async (req, res) => {
   const { changePasswordCredential } = req.body
 
-  const result = await authServices.login(changePasswordCredential)
+  console.log(req.headers)
+  console.log(req.body)
 
-  console.log(result)
+  const result = await authServices.changePassword(changePasswordCredential)
+
+  // console.log(result)
 })
 const forgetPassword = catchAsync(async (req, res) => {
   const { password } = req.body

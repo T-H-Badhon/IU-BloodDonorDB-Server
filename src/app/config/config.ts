@@ -7,4 +7,5 @@ export const config = {
   db_url: process.env.DB_URL,
   port: process.env.PORT,
   ac_token: process.env.ACCESS_SECRATE,
+  salt_round: process.env.SALT_ROUND,
 }
