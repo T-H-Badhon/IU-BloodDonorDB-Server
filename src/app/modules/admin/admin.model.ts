@@ -11,10 +11,14 @@ const adminSchema = new Schema<TAdmin>(
     name: {
       type: String,
     },
+    phone: {
+      type: String,
+      required: true,
+    },
     address: {
       type: String,
     },
-    area: {
+    workingArea: {
       type: String,
     },
     bloodGroup: {
@@ -22,11 +26,7 @@ const adminSchema = new Schema<TAdmin>(
       enum: ['A+', 'B+', 'AB+', 'O+', 'A+', 'B+', 'AB+', 'O+'],
       required: true,
     },
-    isDonor: {
-      type: Boolean,
-      required: true,
-      default: true,
-    },
+
     isAvailable: {
       type: Boolean,
       required: true,

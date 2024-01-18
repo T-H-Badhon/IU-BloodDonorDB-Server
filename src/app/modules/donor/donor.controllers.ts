@@ -1,35 +1,63 @@
+import httpStatus from 'http-status'
 import { catchAsync } from '../../utilitis/catchAsync'
+import response from '../../utilitis/response'
 import { donorServices } from './donor.services'
 
 const getDonorListByBloodGroup = catchAsync(async (req, res) => {
   const bloodGroup = req.params.bloodGroup
-  const result = await donorServices.getDonorListByBloodGroup(bloodGroup)
+  const donors = await donorServices.getDonorListByBloodGroup(bloodGroup)
 
-  console.log(result)
+  response(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Donor List Fetch Successfully!!',
+    data: donors,
+  })
 })
 const getDonorInfo = catchAsync(async (req, res) => {
   const id = req.params.donorId
-  const result = await donorServices.getDonorInfo(id)
+  const donor = await donorServices.getDonorInfo(id)
 
-  console.log(result)
+  response(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Donor  Fetch Successfully!!',
+    data: donor,
+  })
 })
 const getProfile = catchAsync(async (req, res) => {
-  const id = req.params.donorId
-  const result = await donorServices.getProfile(id)
+  const id = req.user._id
+  const profile = await donorServices.getProfile(id)
 
-  console.log(result)
+  response(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Profile  Fetch Successfully!!',
+    data: profile,
+  })
 })
 const updateProfile = catchAsync(async (req, res) => {
-  const id = req.params.donorId
-  const result = await donorServices.updateProfile(id)
+  const id = req.user._id
+  const updateData = req.body
+  const profile = await donorServices.updateProfile(id, updateData)
 
-  console.log(result)
+  response(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Profile  Fetch Successfully!!',
+    data: profile,
+  })
 })
 const deleteProfile = catchAsync(async (req, res) => {
-  const id = req.params.donorId
+  const id = req.user._id
   const result = await donorServices.deleteProfile(id)
 
-  console.log(result)
+  response(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Profile  deleted successfully!',
+    data: result,
+  })
 })
 
 export const donorControllers = {

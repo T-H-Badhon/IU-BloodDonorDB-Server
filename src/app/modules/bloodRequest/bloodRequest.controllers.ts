@@ -1,45 +1,95 @@
+import httpStatus from 'http-status'
 import { catchAsync } from '../../utilitis/catchAsync'
+import response from '../../utilitis/response'
 import { bloodRequestServices } from './bloodRequest.services'
 
 const createRequest = catchAsync(async (req, res) => {
   const { requestData } = req.body
 
-  const result = await bloodRequestServices.createRequest(requestData)
+  const { _id } = req.user
+
+  const request = await bloodRequestServices.createRequest(requestData, _id)
+
+  response(res, {
+    statusCode: httpStatus.CREATED,
+    success: true,
+    message: 'Your request posted successfully',
+    data: request,
+  })
 })
 
 const getAllRequests = catchAsync(async (req, res) => {
-  const result = await bloodRequestServices.getAllRequest()
-})
+  const requests = await bloodRequestServices.getAllRequest()
 
-const getRequestDetails = catchAsync(async (req, res) => {
-  const id = req.params.requestId
-
-  const result = await bloodRequestServices.getRequestDetails(id)
+  response(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All requests fetched successfully',
+    data: requests,
+  })
 })
 
 const myRequests = catchAsync(async (req, res) => {
   const id = req.user._id
 
-  const result = await bloodRequestServices.myRequests(id)
+  const requests = await bloodRequestServices.myRequests(id)
+  response(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Ypur requests fetched successfully',
+    data: requests,
+  })
 })
 
 const updateRequest = catchAsync(async (req, res) => {
-  const id = req.params.requestId
+  const requestId = req.params.requestId
+  const userId = req.user._id
+  const updateData = req.body
+  const request = await bloodRequestServices.updateRequest(
+    updateData,
+    requestId,
+    userId,
+  )
 
-  const result = await bloodRequestServices.updateRequest(id)
+  response(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Your request updated successfully',
+    data: request,
+  })
 })
 
 const deleteRequest = catchAsync(async (req, res) => {
-  const id = req.params.requestId
+  const blogId = req.params.postId
+  const _id = req.user._id
 
-  const result = await bloodRequestServices.deleteRequest(id)
+  const deleteInfo = await bloodRequestServices.deleteRequest(_id, blogId)
+
+  response(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Request deleted successfully',
+    data: deleteInfo,
+  })
+})
+
+const deleteRequestByAdmin = catchAsync(async (req, res) => {
+  const id = req.params.blogId
+
+  const deleteInfo = await bloodRequestServices.deleteRequestByAdmin(id)
+  response(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Request deleted successfully',
+    data: deleteInfo,
+  })
 })
 
 export const bloodRequestControllers = {
   createRequest,
   getAllRequests,
-  getRequestDetails,
   myRequests,
   updateRequest,
   deleteRequest,
+  deleteRequestByAdmin,
 }

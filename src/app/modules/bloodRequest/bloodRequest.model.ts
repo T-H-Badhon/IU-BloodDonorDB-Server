@@ -19,7 +19,7 @@ const bloodRequestSchema = new Schema<TBloodRequest>(
     createdBy: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'user',
+      ref: 'donor',
     },
   },
   {

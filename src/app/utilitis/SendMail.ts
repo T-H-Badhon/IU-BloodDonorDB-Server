@@ -9,7 +9,7 @@ export const sendMail = async (resetInfo: TResetInfo) => {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
-    secure: true,
+    secure: false,
     auth: {
       // TODO: replace `user` and `pass` values from <https://forwardemail.net>
       user: 'tanvirhcse17@gmail.com',

@@ -1,29 +1,17 @@
 import httpStatus from 'http-status'
 import { AppError } from '../../errors/AppError'
-import { User } from '../user/user.model'
 import { Admin } from './admin.model'
 import { TAdmin } from './admin.interface'
+import { User } from '../user/user.model'
+import mongoose from 'mongoose'
 
 const profile = async (id: string) => {
-  const user = await User.findById(id).select('email phone')
+  const profile = await Admin.findOne({ userId: id }).populate({
+    path: 'userId',
+    select: 'email',
+  })
 
-  const admin = await Admin.findOne({ userId: id })
-
-  if (user && admin) {
-    const profile = {
-      name: admin.name,
-      phone: user.phone,
-      email: user.email,
-      address: admin.address,
-      area: admin.area,
-      isDonor: admin.isDonor,
-      isAvailable: admin.isAvailable,
-    }
-
-    return { profile }
-  } else {
-    throw new AppError(httpStatus.BAD_REQUEST, 'Profile retrieve Failed!!')
-  }
+  return profile
 }
 
 const updateProfile = async (updateData: Partial<TAdmin>, id: string) => {
@@ -38,7 +26,34 @@ const updateProfile = async (updateData: Partial<TAdmin>, id: string) => {
   return { updatedProfile }
 }
 
+const deleteProfile = async (id: string) => {
+  const session = await mongoose.startSession()
+
+  try {
+    session.startTransaction()
+    const user = await User.deleteOne({ _id: id }, { session })
+
+    if (user.deletedCount != 1) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Profile delete Failed!!')
+    }
+
+    const donor = await Admin.deleteOne({ userId: id }, { session })
+    if (donor.deletedCount != 1) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Profile delete Failed!!')
+    }
+    await session.commitTransaction()
+    await session.endSession()
+
+    return null
+  } catch (err) {
+    await session.abortTransaction()
+    await session.endSession()
+    throw new AppError(httpStatus.BAD_REQUEST, 'Profile delete Failed!!')
+  }
+}
+
 export const adminServices = {
   profile,
   updateProfile,
+  deleteProfile,
 }

@@ -28,7 +28,20 @@ const updateProfile = catchAsync(async (req, res) => {
   })
 })
 
+const deleteProfile = catchAsync(async (req, res) => {
+  const id = req.user._id
+  const result = await adminServices.deleteProfile(id)
+
+  response(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Profile  deleted successfully!',
+    data: result,
+  })
+})
+
 export const adminControllers = {
   profile,
   updateProfile,
+  deleteProfile,
 }

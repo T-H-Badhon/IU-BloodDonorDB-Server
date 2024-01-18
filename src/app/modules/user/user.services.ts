@@ -1,15 +1,29 @@
-const getAllUser = async () => {
-  console.log('All users')
+import { Donor } from '../donor/donor.model'
+import { User } from './user.model'
+
+const getAllDonors = async () => {
+  const donors = await Donor.find({})
+
+  return donors
 }
-const getSingleUser = async (id: string) => {
-  console.log(id)
+const getSingleDonor = async (id: string) => {
+  const donor = await Donor.findOne({ userId: id })
+    .select('-__v -createdAt -updatedAt')
+    .populate({
+      path: 'userId',
+      select: 'email',
+    })
+
+  return donor
 }
-const changeBlockState = async (id: string) => {
-  console.log(id)
+const changeBlockState = async (id: string, isBlocked: boolean) => {
+  const donor = await User.findByIdAndUpdate(id, { isBlocked: !isBlocked })
+
+  return donor
 }
 
 export const userServices = {
-  getAllUser,
-  getSingleUser,
+  getAllDonors,
+  getSingleDonor,
   changeBlockState,
 }

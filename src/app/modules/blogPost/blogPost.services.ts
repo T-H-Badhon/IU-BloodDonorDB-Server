@@ -1,34 +1,89 @@
+import { Types } from 'mongoose'
 import { TBlogPost } from './blogPost.interface'
+import { BlogPost } from './blogPost.model'
+import { AppError } from '../../errors/AppError'
+import httpStatus from 'http-status'
 
-const createPost = async (postData: TBlogPost) => {
-  console.log(postData)
+const createBlog = async (blogData: TBlogPost, id: Types.ObjectId) => {
+  blogData.createdBy = id
+
+  const blog = await BlogPost.create(blogData)
+  return blog
 }
 
-const getAllPost = async () => {
-  console.log('all Posts')
+const getAllBlogs = async () => {
+  const blogs = await BlogPost.aggregate([
+    { $match: {} },
+    {
+      $lookup: {
+        from: 'donors',
+        localField: 'createdBy',
+        foreignField: 'userId',
+        as: 'author',
+      },
+    },
+  ])
+
+  return blogs
 }
 
-const getPostDetails = async (id: string) => {
-  console.log(id)
+const myBlogs = async (id: string) => {
+  const myBlogs = await BlogPost.find({ createdBy: id })
+
+  return myBlogs
 }
 
-const myPosts = async (id: string) => {
-  console.log(id)
+const updateBlog = async (
+  id: Types.ObjectId,
+  blogId: string,
+  updateData: Partial<TBlogPost>,
+) => {
+  const checkBlog = await BlogPost.findById(blogId)
+
+  if (checkBlog?.createdBy !== id) {
+    throw new AppError(
+      httpStatus.FORBIDDEN,
+      'You are not authorized to update!!',
+    )
+  }
+
+  const blog = await BlogPost.findByIdAndUpdate(blogId, updateData, {
+    new: true,
+  })
+
+  return blog
 }
 
-const updatePost = async (id: string) => {
-  console.log(id)
+const deleteBlog = async (
+  id: Types.ObjectId,
+
+  blogId: string,
+) => {
+  const checkBlog = await BlogPost.findById(blogId)
+
+  if (checkBlog?.createdBy !== id) {
+    throw new AppError(
+      httpStatus.FORBIDDEN,
+      'You are not authorized to delete!!',
+    )
+  }
+
+  const deleteInfo = await BlogPost.deleteOne({ _id: blogId })
+
+  return deleteInfo
 }
 
-const deletePost = async (id: string) => {
-  console.log(id)
+const deleteBlogByAdmin = async (id: string) => {
+  const deleteInfo = await BlogPost.deleteOne({ _id: id })
+
+  return deleteInfo
 }
 
 export const blogPostServices = {
-  createPost,
-  getAllPost,
-  getPostDetails,
-  myPosts,
-  updatePost,
-  deletePost,
+  createBlog,
+  getAllBlogs,
+  myBlogs,
+  updateBlog,
+  deleteBlog,
+  deleteBlogByAdmin,
 }

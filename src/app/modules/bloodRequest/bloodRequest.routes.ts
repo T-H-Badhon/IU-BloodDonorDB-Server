@@ -1,14 +1,30 @@
 import { Router } from 'express'
 import { bloodRequestControllers } from './bloodRequest.controllers'
+import auth from '../../middleware/Auth'
 
 const router = Router()
 
-router.post('/create-request', bloodRequestControllers.createRequest)
-router.get('/', bloodRequestControllers.getAllRequests)
-router.get('/:requestId', bloodRequestControllers.getRequestDetails)
-router.get('/my-requests', bloodRequestControllers.myRequests)
-router.put('/my-requests/:requestId', bloodRequestControllers.updateRequest)
-router.delete('/my-requests/:requestId', bloodRequestControllers.deleteRequest)
-router.delete('/:requestId', bloodRequestControllers.deleteRequest)
+router.post(
+  '/create-request',
+  auth('donor'),
+  bloodRequestControllers.createRequest,
+)
+router.get('/', auth('admin', 'donor'), bloodRequestControllers.getAllRequests)
+router.get('/my-requests', auth('donor'), bloodRequestControllers.myRequests)
+router.put(
+  '/my-requests/:requestId',
+  auth('donor'),
+  bloodRequestControllers.updateRequest,
+)
+router.delete(
+  '/my-requests/:requestId',
+  auth('donor'),
+  bloodRequestControllers.deleteRequest,
+)
+router.delete(
+  '/:requestId',
+  auth('admin'),
+  bloodRequestControllers.deleteRequest,
+)
 
 export const bloodRequestRoutes = router

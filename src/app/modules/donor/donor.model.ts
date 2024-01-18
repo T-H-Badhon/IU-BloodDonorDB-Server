@@ -11,6 +11,10 @@ const donorSchema = new Schema<TDonor>(
     name: {
       type: String,
     },
+    phone: {
+      type: String,
+      required: true,
+    },
     address: {
       type: String,
     },

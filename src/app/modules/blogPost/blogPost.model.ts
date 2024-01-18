@@ -14,7 +14,7 @@ const blogPostSchema = new Schema<TBlogPost>(
     createdBy: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'user',
+      ref: 'donor',
     },
   },
   {

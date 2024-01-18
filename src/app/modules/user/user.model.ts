@@ -21,10 +21,7 @@ const userSchema = new Schema<TUser>(
       required: true,
       default: 'donor',
     },
-    phone: {
-      type: String,
-      required: true,
-    },
+
     passwordChangeAT: Date,
     passwordHistory: passwordHistorySchema,
     isBlocked: {

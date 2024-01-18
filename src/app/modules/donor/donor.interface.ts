@@ -4,6 +4,7 @@ import { TBloodGroup } from '../admin/admin.interface'
 export type TDonor = {
   userId: Types.ObjectId
   name: string
+  phone: string
   address: string
   bloodGroup: TBloodGroup
   area: string

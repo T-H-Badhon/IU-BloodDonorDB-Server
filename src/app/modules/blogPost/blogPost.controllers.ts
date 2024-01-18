@@ -1,48 +1,89 @@
+import httpStatus from 'http-status'
 import { catchAsync } from '../../utilitis/catchAsync'
+import response from '../../utilitis/response'
 import { blogPostServices } from './blogPost.services'
 
-const createPost = catchAsync(async (req, res) => {
-  const { postData } = req.body
-  const result = await blogPostServices.createPost(postData)
-  console.log(result)
+const createBlog = catchAsync(async (req, res) => {
+  const { blogData } = req.body
+  const { _id } = req.user
+  const blog = await blogPostServices.createBlog(blogData, _id)
+  response(res, {
+    statusCode: httpStatus.CREATED,
+    success: true,
+    message: 'Blog posted successfully',
+    data: blog,
+  })
 })
 
-const getAllPost = catchAsync(async (req, res) => {
-  const result = await blogPostServices.getAllPost()
-  console.log(result)
+const getAllBlogs = catchAsync(async (req, res) => {
+  const result = await blogPostServices.getAllBlogs()
+  response(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All blogs fetched successfully',
+    data: result,
+  })
 })
 
-const getPostDetails = catchAsync(async (req, res) => {
-  const id = req.params.postId
-  const result = await blogPostServices.getPostDetails(id)
-  console.log(result)
+const myBlogs = catchAsync(async (req, res) => {
+  const { _id } = req.user
+  const blogs = await blogPostServices.myBlogs(_id)
+  response(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Your Blogs fetched successfully',
+    data: blogs,
+  })
 })
 
-const myPosts = catchAsync(async (req, res) => {
-  const id = req.user._id
-  const result = await blogPostServices.myPosts(id)
-  console.log(result)
-})
-
-const updatePost = catchAsync(async (req, res) => {
-  const id = req.user._id
+const updateBlog = catchAsync(async (req, res) => {
+  const modifierUserId = req.user._id
+  const blogId = req.params.blogId
   const { updateData } = req.body
-  const result = await blogPostServices.updatePost(id, updateData)
-  console.log(result)
+  const blog = await blogPostServices.updateBlog(
+    modifierUserId,
+    blogId,
+    updateData,
+  )
+  response(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Blog updated successfully',
+    data: blog,
+  })
 })
 
-const deletePost = catchAsync(async (req, res) => {
-  const id = req.params.postId
-  const result = await blogPostServices.deletePost(id)
+const deleteBlog = catchAsync(async (req, res) => {
+  const blogId = req.params.postId
+  const _id = req.user._id
 
-  console.log(result)
+  const deleteInfo = await blogPostServices.deleteBlog(_id, blogId)
+
+  response(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Blog deleted successfully',
+    data: deleteInfo,
+  })
+})
+
+const deleteBlogByAdmin = catchAsync(async (req, res) => {
+  const id = req.params.blogId
+
+  const deleteInfo = await blogPostServices.deleteBlogByAdmin(id)
+  response(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Blog deleted successfully',
+    data: deleteInfo,
+  })
 })
 
 export const blogPostControllers = {
-  createPost,
-  getAllPost,
-  getPostDetails,
-  myPosts,
-  updatePost,
-  deletePost,
+  createBlog,
+  getAllBlogs,
+  myBlogs,
+  updateBlog,
+  deleteBlog,
+  deleteBlogByAdmin,
 }

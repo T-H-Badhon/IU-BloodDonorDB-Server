@@ -13,9 +13,9 @@ export type TBloodGroup =
 export type TAdmin = {
   userId: Types.ObjectId
   name: string
+  phone: string
   address: string
-  area: string
+  workingArea: string
   bloodGroup: TBloodGroup
-  isDonor: boolean
   isAvailable: boolean
 }
