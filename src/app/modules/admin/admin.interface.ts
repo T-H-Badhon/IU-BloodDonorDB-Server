@@ -15,7 +15,7 @@ export type TAdmin = {
   name: string
   phone: string
   address: string
-  workingArea: string
+  area: string
   bloodGroup: TBloodGroup
   isAvailable: boolean
 }

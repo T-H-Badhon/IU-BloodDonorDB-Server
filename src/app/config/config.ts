@@ -8,4 +8,5 @@ export const config = {
   port: process.env.PORT,
   ac_token: process.env.ACCESS_SECRATE,
   salt_round: process.env.SALT_ROUND,
+  super_key: process.env.SUPER_KEY,
 }

@@ -1,10 +1,15 @@
 import { Router } from 'express'
 import { authControllers } from './auth.controllers'
 import auth from '../../middleware/Auth'
+import { checkSuperAdminCode } from '../../middleware/SuperAdminCheck'
 
 const router = Router()
 
-router.post('/registerAdmin', authControllers.registerAdmin)
+router.post(
+  '/registerAdmin',
+  checkSuperAdminCode,
+  authControllers.registerAdmin,
+)
 router.post('/registerDonor', authControllers.registerDonor)
 router.post('/login', authControllers.login)
 router.put(

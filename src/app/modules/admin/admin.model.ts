@@ -18,7 +18,7 @@ const adminSchema = new Schema<TAdmin>(
     address: {
       type: String,
     },
-    workingArea: {
+    area: {
       type: String,
     },
     bloodGroup: {

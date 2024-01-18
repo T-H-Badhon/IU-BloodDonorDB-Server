@@ -101,7 +101,7 @@ const registerDonor = async (userData: TUser, donorData: TDonor) => {
   } catch (err) {
     await session.abortTransaction()
     await session.endSession()
-    console.log(err)
+    throw err
   }
 }
 
