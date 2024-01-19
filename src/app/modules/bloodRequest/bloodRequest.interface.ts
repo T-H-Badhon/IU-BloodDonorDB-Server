@@ -3,7 +3,10 @@ import { TBloodGroup } from '../admin/admin.interface'
 
 export type TBloodRequest = {
   bloodGroup: TBloodGroup
-  location: string
+  patientName: string
+  phone: string
+  date: Date
+  area: string
   reason: string
   createdBy: Types.ObjectId
 }

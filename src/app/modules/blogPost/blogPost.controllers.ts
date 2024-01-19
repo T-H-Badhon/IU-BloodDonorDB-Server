@@ -6,6 +6,7 @@ import { blogPostServices } from './blogPost.services'
 const createBlog = catchAsync(async (req, res) => {
   const { blogData } = req.body
   const { _id } = req.user
+  console.log(req.user)
   const blog = await blogPostServices.createBlog(blogData, _id)
   response(res, {
     statusCode: httpStatus.CREATED,

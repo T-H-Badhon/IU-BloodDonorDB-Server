@@ -5,10 +5,10 @@ export type TBloodGroup =
   | 'B+'
   | 'AB+'
   | 'O+'
-  | 'A+'
-  | 'B+'
-  | 'AB+'
-  | 'O+'
+  | 'A-'
+  | 'B-'
+  | 'AB-'
+  | 'O-'
 
 export type TAdmin = {
   userId: Types.ObjectId

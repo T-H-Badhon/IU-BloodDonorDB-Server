@@ -5,7 +5,7 @@ const passwordHistorySchema = new Schema<TPasswordHistory>({
   password: {
     type: String,
   },
-  usedAt: Date,
+  usedAt: { type: Date },
 })
 
 const userSchema = new Schema<TUser>(

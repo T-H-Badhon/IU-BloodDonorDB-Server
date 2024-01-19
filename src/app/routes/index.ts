@@ -30,7 +30,7 @@ const moduleRoutes = [
     route: blogPostRoutes,
   },
   {
-    path: '/blood-request',
+    path: '/blood-requests',
     route: bloodRequestRoutes,
   },
 ]

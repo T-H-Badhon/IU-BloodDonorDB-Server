@@ -22,8 +22,11 @@ const getAllBlogs = async () => {
         as: 'author',
       },
     },
+    {
+      $unwind: '$author', // Unwind the results to get a single embedded document
+    },
   ])
-
+  console.log(blogs)
   return blogs
 }
 

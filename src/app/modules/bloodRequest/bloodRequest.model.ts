@@ -8,12 +8,25 @@ const bloodRequestSchema = new Schema<TBloodRequest>(
       enum: ['A+', 'B+', 'AB+', 'O+', 'A+', 'B+', 'AB+', 'O+'],
       required: true,
     },
-    location: {
+    patientName: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+
+    area: {
       type: String,
       required: true,
     },
     reason: {
       type: String,
+      required: true,
+    },
+    date: {
+      type: Date,
       required: true,
     },
     createdBy: {
