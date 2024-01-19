@@ -63,8 +63,10 @@ const deleteBlog = async (
   blogId: string,
 ) => {
   const checkBlog = await BlogPost.findById(blogId)
+  console.log(checkBlog)
 
-  if (checkBlog?.createdBy !== id) {
+  if (!checkBlog?.createdBy.equals(id)) {
+    console.log(checkBlog?.createdBy, id)
     throw new AppError(
       httpStatus.FORBIDDEN,
       'You are not authorized to delete!!',

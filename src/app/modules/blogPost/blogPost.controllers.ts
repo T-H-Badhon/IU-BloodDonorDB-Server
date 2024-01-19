@@ -55,7 +55,7 @@ const updateBlog = catchAsync(async (req, res) => {
 })
 
 const deleteBlog = catchAsync(async (req, res) => {
-  const blogId = req.params.postId
+  const blogId = req.params.blogId
   const _id = req.user._id
 
   const deleteInfo = await blogPostServices.deleteBlog(_id, blogId)
