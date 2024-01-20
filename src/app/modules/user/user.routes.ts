@@ -6,7 +6,7 @@ const router = Router()
 
 router.get('/donors', auth('admin'), userControllers.getAllDonors)
 router.put(
-  '/:donorId/changeBlockState',
+  '/:userId/changeBlockState',
   auth('admin'),
   userControllers.changeBlockState,
 )

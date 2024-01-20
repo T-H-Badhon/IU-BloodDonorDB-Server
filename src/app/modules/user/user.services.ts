@@ -20,7 +20,11 @@ const getAllDonors = async (query: Record<string, unknown>) => {
 }
 
 const changeBlockState = async (id: string, isBlocked: boolean) => {
-  const donor = await User.findByIdAndUpdate(id, { isBlocked: !isBlocked })
+  const donor = await User.findByIdAndUpdate(
+    { _id: id },
+    { isBlocked: isBlocked },
+    { new: true },
+  ).select('isBlocked')
 
   return donor
 }

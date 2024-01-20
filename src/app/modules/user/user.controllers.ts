@@ -14,7 +14,8 @@ const getAllDonors = catchAsync(async (req, res) => {
 })
 const changeBlockState = catchAsync(async (req, res) => {
   const id = req.params.userId
-  const { isBlocked } = req.body
+  const { isBlocked } = req.body.updateData
+
   const donor = await userServices.changeBlockState(id, isBlocked)
   response(res, {
     statusCode: 201,

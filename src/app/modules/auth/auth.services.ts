@@ -117,6 +117,10 @@ const login = async (loginCredential: TLoginCredential) => {
       throw new AppError(httpStatus.FORBIDDEN, 'password not matched')
     }
 
+    if (loginUser.isBlocked) {
+      throw new AppError(httpStatus.FORBIDDEN, 'You are Blocked!')
+    }
+
     const tokenInfo = {
       _id: loginUser._id,
       email: loginUser.email,
