@@ -6,8 +6,6 @@ import { donorServices } from './donor.services'
 const getDonorListByBloodGroup = catchAsync(async (req, res) => {
   const query = req.query
 
-  console.log(query)
-
   const donors = await donorServices.getDonorListByBloodGroup(query)
 
   response(res, {
@@ -30,7 +28,7 @@ const getDonorInfo = catchAsync(async (req, res) => {
 })
 const getProfile = catchAsync(async (req, res) => {
   const id = req.user._id
-  console.log(id)
+
   const profile = await donorServices.getProfile(id)
 
   response(res, {
@@ -44,7 +42,6 @@ const updateProfile = catchAsync(async (req, res) => {
   const id = req.user._id
   const { updateData } = req.body
 
-  console.log(id)
   const profile = await donorServices.updateProfile(id, updateData)
 
   response(res, {

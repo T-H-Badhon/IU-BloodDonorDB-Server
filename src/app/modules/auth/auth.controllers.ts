@@ -15,7 +15,6 @@ const registerAdmin = catchAsync(async (req, res) => {
 })
 const registerDonor = catchAsync(async (req, res) => {
   const { userData, donorData } = req.body
-  console.log(req.body)
 
   const result = await authServices.registerDonor(userData, donorData)
 
@@ -29,7 +28,7 @@ const registerDonor = catchAsync(async (req, res) => {
 
 const login = catchAsync(async (req, res) => {
   const { loginCredential } = req.body
-  console.log(loginCredential)
+
   const result = await authServices.login(loginCredential)
 
   response(res, {
@@ -44,9 +43,6 @@ const changePassword = catchAsync(async (req, res) => {
   const { currentPassword, newPassword } = req.body.changePasswordCredential
 
   const id = req.user._id
-
-  console.log(req.headers)
-  console.log(req.body)
 
   const result = await authServices.changePassword(
     currentPassword,

@@ -31,10 +31,10 @@ const registerAdmin = async (userData: TUser, adminData: TAdmin) => {
     if (!newUser.length) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Registration Failed!!')
     }
-    console.log(newUser)
+
     adminData.userId = newUser[0]._id
     const newAdmin = await Admin.create([adminData], { session })
-    console.log(newAdmin[0])
+
     if (!newAdmin.length) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Registration Failed!!')
     }
@@ -75,10 +75,10 @@ const registerDonor = async (userData: TUser, donorData: TDonor) => {
     if (!newUser.length) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Registration Failed!!')
     }
-    console.log(newUser)
+
     donorData.userId = newUser[0]._id
     const newDonor = await Donor.create([donorData], { session })
-    console.log(newDonor[0])
+
     if (!newDonor.length) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Registration Failed!!')
     }

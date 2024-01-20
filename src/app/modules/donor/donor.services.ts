@@ -33,7 +33,6 @@ const getProfile = async (id: string) => {
   return profile
 }
 const updateProfile = async (id: string, updateData: Partial<TDonor>) => {
-  console.log(updateData)
   const updatedProfile = await Donor.findOneAndUpdate(
     { userId: id },
     updateData,
