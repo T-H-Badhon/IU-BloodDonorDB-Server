@@ -220,39 +220,37 @@ const changePassword = async (
   }
   throw new AppError(httpStatus.BAD_REQUEST, 'Password Change Failed')
 }
-const forgetPassword = async (
-  email: string,
-  authEmail: string,
-  id: Types.ObjectId,
-) => {
-  if (email === authEmail) {
-    const newPassword = randomPasswordGenerator()
-    const newHashedPassword = await hashedPassword(newPassword)
+const forgetPassword = async (email: string) => {
+  const checkUser = await User.findOne({ email: email })
 
-    const user = await User.findByIdAndUpdate(
-      id,
-      {
-        password: newHashedPassword,
-        passwordChangedAt: new Date(),
-      },
-      { new: true },
-    ).select('_id username email role createdAt updatedAt')
-
-    if (!user) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Password Recovery Failed')
-    }
-
-    const resetInfo = {
-      email,
-      newPassword,
-    }
-
-    const result = await sendMail(resetInfo)
-
-    return result
-  } else {
-    throw new AppError(httpStatus.NOT_FOUND, 'User Not Found!!')
+  if (!checkUser?._id) {
+    throw new AppError(httpStatus.NOT_FOUND, "Email doesn't exsist!")
   }
+
+  const newPassword = randomPasswordGenerator(8)
+  const newHashedPassword = await hashedPassword(newPassword)
+
+  const user = await User.findByIdAndUpdate(
+    checkUser._id,
+    {
+      password: newHashedPassword,
+      passwordChangedAt: new Date(),
+    },
+    { new: true },
+  ).select('_id username email role createdAt updatedAt')
+
+  if (!user) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Password Recovery Failed')
+  }
+
+  const resetInfo = {
+    email,
+    newPassword,
+  }
+
+  const result = await sendMail(resetInfo)
+
+  return result
 }
 
 export const authServices = {

@@ -4,9 +4,9 @@ import auth from '../../middleware/Auth'
 
 const router = Router()
 
-router.get('/', donorControllers.getDonorListByBloodGroup)
+router.get('/', donorControllers.getDonorListBySearch)
 
-router.get('/:donorId', donorControllers.getDonorInfo)
+// router.get('/:donorId', donorControllers.getDonorInfo)
 
 router.get('/donor/profile', auth('donor'), donorControllers.getProfile)
 

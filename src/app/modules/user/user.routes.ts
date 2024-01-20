@@ -4,10 +4,9 @@ import auth from '../../middleware/Auth'
 
 const router = Router()
 
-router.get('/:userId', auth('admin'), userControllers.getSingleDonor)
-router.get('/', auth('admin'), userControllers.getAllDonors)
+router.get('/donors', auth('admin'), userControllers.getAllDonors)
 router.put(
-  '/:userId/changeBlockState',
+  '/:donorId/changeBlockState',
   auth('admin'),
   userControllers.changeBlockState,
 )

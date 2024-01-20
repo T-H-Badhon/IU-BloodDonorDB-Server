@@ -4,22 +4,12 @@ import response from '../../utilitis/response'
 import { userServices } from './user.services'
 
 const getAllDonors = catchAsync(async (req, res) => {
-  const donors = await userServices.getAllDonors()
+  const donors = await userServices.getAllDonors(req.query)
   response(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'All Donors fetch Successfully!',
     data: donors,
-  })
-})
-const getSingleDonor = catchAsync(async (req, res) => {
-  const id = req.params.userId
-  const donor = await userServices.getSingleDonor(id)
-  response(res, {
-    statusCode: 201,
-    success: true,
-    message: 'Donor retrive Successfully!!',
-    data: donor,
   })
 })
 const changeBlockState = catchAsync(async (req, res) => {
@@ -36,6 +26,5 @@ const changeBlockState = catchAsync(async (req, res) => {
 
 export const userControllers = {
   getAllDonors,
-  getSingleDonor,
   changeBlockState,
 }

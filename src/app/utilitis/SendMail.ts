@@ -21,8 +21,9 @@ export const sendMail = async (resetInfo: TResetInfo) => {
     from: 'tanvirhcse17@gmail.com', // sender address
     to: resetInfo.email, // list of receivers
     subject: 'Temporary Password', // Subject line
-    text: 'hi, User. Temporary Password generated and given below. We suggest you to change your password as soon as possible.', // plain text body
+    text: 'Hi, User', // plain text body
     html: `<div>
+    <p>Hi, User.<br/> A temporary login credential is given below.<br/>We suggest you to login with this credential and change your password as soon as possible.</p>
         <h2>Temporary login Credential</h2>
         <h3>email: ${resetInfo.email}</h3>
         <h3>Password: ${resetInfo.newPassword}</h3>

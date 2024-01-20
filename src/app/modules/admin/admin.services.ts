@@ -15,15 +15,22 @@ const profile = async (id: string) => {
 }
 
 const updateProfile = async (updateData: Partial<TAdmin>, id: string) => {
-  const updatedProfile = await Admin.findByIdAndUpdate(id, updateData, {
-    new: true,
+  const updatedProfile = await Admin.findOneAndUpdate(
+    { userId: id },
+    updateData,
+    {
+      new: true,
+    },
+  ).populate({
+    path: 'userId',
+    select: 'email',
   })
 
   if (!updatedProfile?._id) {
     throw new AppError(httpStatus.BAD_REQUEST, ' Profile Update Failed!!')
   }
 
-  return { updatedProfile }
+  return updatedProfile
 }
 
 const deleteProfile = async (id: string) => {

@@ -5,7 +5,7 @@ import { User } from '../user/user.model'
 import { AppError } from '../../errors/AppError'
 import httpStatus from 'http-status'
 
-const getDonorListByBloodGroup = async (query: Partial<TDonor>) => {
+const getDonorListBySearch = async (query: Partial<TDonor>) => {
   const result = await Donor.find(query)
 
   return result
@@ -37,7 +37,10 @@ const updateProfile = async (id: string, updateData: Partial<TDonor>) => {
     { userId: id },
     updateData,
     { new: true },
-  )
+  ).populate({
+    path: 'userId',
+    select: 'email',
+  })
 
   return updatedProfile
 }
@@ -68,7 +71,7 @@ const deleteProfile = async (id: string) => {
 }
 
 export const donorServices = {
-  getDonorListByBloodGroup,
+  getDonorListBySearch,
   getDonorInfo,
   getProfile,
   updateProfile,

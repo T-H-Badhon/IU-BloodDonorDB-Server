@@ -54,14 +54,13 @@ const changePassword = catchAsync(async (req, res) => {
 })
 const forgetPassword = catchAsync(async (req, res) => {
   const { email } = req.body
-  const auth = req.user
 
-  const result = await authServices.forgetPassword(email, auth.email, auth._id)
+  const result = await authServices.forgetPassword(email)
 
   response(res, {
     success: true,
     statusCode: 200,
-    message: 'Reset link send to email',
+    message: 'Recovery Credential sent. Check Mail!',
     data: result,
   })
 })

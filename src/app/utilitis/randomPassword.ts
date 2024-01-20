@@ -1,4 +1,4 @@
-export const randomPasswordGenerator = () => {
+export const randomPasswordGenerator = (length: number) => {
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   let randomWord = ''

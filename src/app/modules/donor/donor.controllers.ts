@@ -3,10 +3,10 @@ import { catchAsync } from '../../utilitis/catchAsync'
 import response from '../../utilitis/response'
 import { donorServices } from './donor.services'
 
-const getDonorListByBloodGroup = catchAsync(async (req, res) => {
+const getDonorListBySearch = catchAsync(async (req, res) => {
   const query = req.query
 
-  const donors = await donorServices.getDonorListByBloodGroup(query)
+  const donors = await donorServices.getDonorListBySearch(query)
 
   response(res, {
     success: true,
@@ -64,7 +64,7 @@ const deleteProfile = catchAsync(async (req, res) => {
 })
 
 export const donorControllers = {
-  getDonorListByBloodGroup,
+  getDonorListBySearch,
   getDonorInfo,
   getProfile,
   updateProfile,
