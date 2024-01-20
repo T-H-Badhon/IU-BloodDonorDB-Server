@@ -192,8 +192,8 @@ const changePassword = async (
     id,
     {
       password: newHashedPassword,
-      passwordChangedAt: new Date(),
-      passHistory: loginUser?.passwordHistory,
+      passwordChangeAT: new Date(),
+      passwordHistory: loginUser?.passwordHistory,
     },
     { new: true },
   ).select('_id username email role createdAt updatedAt')

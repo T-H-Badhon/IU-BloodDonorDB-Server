@@ -5,10 +5,8 @@ import { User } from '../user/user.model'
 import { AppError } from '../../errors/AppError'
 import httpStatus from 'http-status'
 
-const getDonorListByBloodGroup = async (bloodGroup: string) => {
-  const result = await Donor.find({ bloodGroup: bloodGroup }).select(
-    '_id name phone address bloodGroup isAvailable',
-  )
+const getDonorListByBloodGroup = async (query: Partial<TDonor>) => {
+  const result = await Donor.find(query)
 
   return result
 }
@@ -35,6 +33,7 @@ const getProfile = async (id: string) => {
   return profile
 }
 const updateProfile = async (id: string, updateData: Partial<TDonor>) => {
+  console.log(updateData)
   const updatedProfile = await Donor.findOneAndUpdate(
     { userId: id },
     updateData,

@@ -4,8 +4,11 @@ import response from '../../utilitis/response'
 import { donorServices } from './donor.services'
 
 const getDonorListByBloodGroup = catchAsync(async (req, res) => {
-  const bloodGroup = req.params.bloodGroup
-  const donors = await donorServices.getDonorListByBloodGroup(bloodGroup)
+  const query = req.query
+
+  console.log(query)
+
+  const donors = await donorServices.getDonorListByBloodGroup(query)
 
   response(res, {
     success: true,
@@ -27,6 +30,7 @@ const getDonorInfo = catchAsync(async (req, res) => {
 })
 const getProfile = catchAsync(async (req, res) => {
   const id = req.user._id
+  console.log(id)
   const profile = await donorServices.getProfile(id)
 
   response(res, {
@@ -38,13 +42,15 @@ const getProfile = catchAsync(async (req, res) => {
 })
 const updateProfile = catchAsync(async (req, res) => {
   const id = req.user._id
-  const updateData = req.body
+  const { updateData } = req.body
+
+  console.log(id)
   const profile = await donorServices.updateProfile(id, updateData)
 
   response(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Profile  Fetch Successfully!!',
+    message: 'Profile  updated Successfully!!',
     data: profile,
   })
 })

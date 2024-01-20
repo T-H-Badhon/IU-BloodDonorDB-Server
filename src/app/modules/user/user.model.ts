@@ -22,8 +22,10 @@ const userSchema = new Schema<TUser>(
       default: 'donor',
     },
 
-    passwordChangeAT: Date,
-    passwordHistory: passwordHistorySchema,
+    passwordChangeAT: {
+      type: Date,
+    },
+    passwordHistory: [passwordHistorySchema],
     isBlocked: {
       type: Boolean,
       default: false,
