@@ -10,6 +10,7 @@ const adminSchema = new Schema<TAdmin>(
     },
     name: {
       type: String,
+      required: true,
     },
     phone: {
       type: String,
@@ -17,13 +18,16 @@ const adminSchema = new Schema<TAdmin>(
     },
     address: {
       type: String,
+      required: true,
     },
     area: {
       type: String,
+      enum: ['Kushtia', 'Jhinaidah', 'Sheikhpara'],
+      required: true,
     },
     bloodGroup: {
       type: String,
-      enum: ['A+', 'B+', 'AB+', 'O+', 'A+', 'B+', 'AB+', 'O+'],
+      enum: ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'],
       required: true,
     },
 
