@@ -6,6 +6,11 @@ import validate from '../../middleware/ValidationFunction'
 import { userValidationSchema } from '../user/user.validationSchema'
 import { adminValidationSchema } from '../admin/admin.validationSchema'
 import { donorValidationSchema } from '../donor/donor.validationSchema'
+import {
+  changePasswordValidationSchema,
+  forgetPasswordValidationSchema,
+  loginValidationSchema,
+} from './auth.validationSchema'
 
 const router = Router()
 
@@ -22,12 +27,17 @@ router.post(
   validate(donorValidationSchema),
   authControllers.registerDonor,
 )
-router.post('/login', authControllers.login)
+router.post('/login', validate(loginValidationSchema), authControllers.login)
 router.put(
   '/change-password',
   auth('admin', 'donor'),
+  validate(changePasswordValidationSchema),
   authControllers.changePassword,
 )
-router.post('/forget-password', authControllers.forgetPassword)
+router.post(
+  '/forget-password',
+  validate(forgetPasswordValidationSchema),
+  authControllers.forgetPassword,
+)
 
 export const authRoutes = router

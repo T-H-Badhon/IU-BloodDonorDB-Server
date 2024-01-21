@@ -1,12 +1,15 @@
 import { Router } from 'express'
 import { bloodRequestControllers } from './bloodRequest.controllers'
 import auth from '../../middleware/Auth'
+import validate from '../../middleware/ValidationFunction'
+import { bloodRequestValidationSchema } from './bloodRequest.validationSchema'
 
 const router = Router()
 
 router.post(
   '/create-request',
   auth('donor'),
+  validate(bloodRequestValidationSchema),
   bloodRequestControllers.createRequest,
 )
 router.get('/', auth('admin', 'donor'), bloodRequestControllers.getAllRequests)
