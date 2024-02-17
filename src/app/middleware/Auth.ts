@@ -47,6 +47,10 @@ const auth = (...requiredRoles: string[]) => {
       )
     }
 
+    if (loginUser.isBlocked) {
+      throw new AppError(httpStatus.FORBIDDEN, 'You are blocked by admin')
+    }
+
     req.user = decoded as JwtPayload
     next()
   })

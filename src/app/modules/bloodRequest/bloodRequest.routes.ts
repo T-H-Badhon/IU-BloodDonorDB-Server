@@ -27,7 +27,7 @@ router.delete(
 router.delete(
   '/:requestId',
   auth('admin'),
-  bloodRequestControllers.deleteRequest,
+  bloodRequestControllers.deleteRequestByAdmin,
 )
 
 export const bloodRequestRoutes = router

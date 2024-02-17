@@ -64,7 +64,7 @@ const deleteRequest = async (
 ) => {
   const checkRequest = await BloodRequest.findById(requestId)
 
-  if (checkRequest?.createdBy !== id) {
+  if (checkRequest?.createdBy != id) {
     throw new AppError(
       httpStatus.FORBIDDEN,
       'You are not authorized to delete!!',
