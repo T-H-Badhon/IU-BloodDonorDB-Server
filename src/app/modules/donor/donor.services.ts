@@ -11,6 +11,12 @@ const getDonorListBySearch = async (query: Partial<TDonor>) => {
   return result
 }
 
+const donorCount = async () => {
+  const result = await Donor.countDocuments()
+
+  return result
+}
+
 const getDonorInfo = async (id: string) => {
   const donor = await Donor.findById(id)
     .select('name phone address area bloodGroup isAvailable lastDonateDate')
@@ -72,6 +78,7 @@ const deleteProfile = async (id: string) => {
 
 export const donorServices = {
   getDonorListBySearch,
+  donorCount,
   getDonorInfo,
   getProfile,
   updateProfile,

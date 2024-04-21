@@ -15,6 +15,17 @@ const getDonorListBySearch = catchAsync(async (req, res) => {
     data: donors,
   })
 })
+const donorCount = catchAsync(async (req, res) => {
+  const donors = await donorServices.donorCount()
+
+  response(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Donor number gets Successfully!!',
+    data: donors,
+  })
+})
+
 const getDonorInfo = catchAsync(async (req, res) => {
   const id = req.params.donorId
   const donor = await donorServices.getDonorInfo(id)
@@ -65,6 +76,7 @@ const deleteProfile = catchAsync(async (req, res) => {
 
 export const donorControllers = {
   getDonorListBySearch,
+  donorCount,
   getDonorInfo,
   getProfile,
   updateProfile,

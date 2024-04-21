@@ -3,9 +3,8 @@ import { ZodError } from 'zod'
 import { ZodErrorMessageGenerator } from '../errors/ZodError'
 import { AppError } from '../errors/AppError'
 import { AuthError } from '../errors/AuthError'
-import { MongooseErrorMessageGenerator } from '../errors/MongooseError'
+
 import { CastErrorMessageGenerator } from '../errors/CastError'
-import { DuplicateErrorMessageGenerator } from '../errors/DuplicateError'
 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
@@ -19,18 +18,10 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     statusCode = 400
     message = 'Validation Error'
     errorMessage = ZodErrorMessageGenerator(err)
-  } else if (err.name === 'ValidationError') {
-    statusCode = 400
-    message = 'Validation Error'
-    errorMessage = MongooseErrorMessageGenerator(err)
   } else if (err?.name === 'CastError') {
     statusCode = 400
     message = 'Invalid ID!'
     errorMessage = CastErrorMessageGenerator(err)
-  } else if (err?.code === 11000) {
-    statusCode = 400
-    message = 'Duplicate Entry!'
-    errorMessage = DuplicateErrorMessageGenerator(err)
   } else if (err instanceof AppError) {
     statusCode = err.statusCode
     message = 'BAD REQUEST!'
