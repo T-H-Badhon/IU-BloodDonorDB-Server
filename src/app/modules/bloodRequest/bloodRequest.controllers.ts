@@ -60,10 +60,10 @@ const updateRequest = catchAsync(async (req, res) => {
 })
 
 const deleteRequest = catchAsync(async (req, res) => {
-  const blogId = req.params.postId
+  const requestId = req.params.requestId
   const _id = req.user._id
 
-  const deleteInfo = await bloodRequestServices.deleteRequest(_id, blogId)
+  const deleteInfo = await bloodRequestServices.deleteRequest(_id, requestId)
 
   response(res, {
     statusCode: httpStatus.OK,
@@ -74,7 +74,7 @@ const deleteRequest = catchAsync(async (req, res) => {
 })
 
 const deleteRequestByAdmin = catchAsync(async (req, res) => {
-  const id = req.params.blogId
+  const id = req.params.requestId
 
   const deleteInfo = await bloodRequestServices.deleteRequestByAdmin(id)
   response(res, {

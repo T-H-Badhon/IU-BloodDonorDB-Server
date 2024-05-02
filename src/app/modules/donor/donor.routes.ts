@@ -7,6 +7,7 @@ import { updateDonorValidationSchema } from './donor.validationSchema'
 const router = Router()
 
 router.get('/', donorControllers.getDonorListBySearch)
+router.get('/count', donorControllers.donorCount)
 
 // router.get('/:donorId', donorControllers.getDonorInfo)
 
