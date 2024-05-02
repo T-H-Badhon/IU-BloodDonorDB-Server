@@ -17,6 +17,11 @@ import { sendMail } from '../../utilitis/SendMail'
 import { randomPasswordGenerator } from '../../utilitis/randomPassword'
 
 const registerAdmin = async (userData: TUser, adminData: TAdmin) => {
+  const loginCredentials = {
+    email: userData.email,
+    newPassword: userData.password,
+  }
+
   userData.passwordChangeAT = new Date()
   userData.role = 'admin'
   userData.password = await hashedPassword(userData.password)
@@ -49,6 +54,8 @@ const registerAdmin = async (userData: TUser, adminData: TAdmin) => {
     const token = jwt.sign(tokenInfo, config.ac_token as string, {
       expiresIn: '1h',
     })
+
+    await sendMail(loginCredentials)
 
     return {
       role: newUser[0].role,
