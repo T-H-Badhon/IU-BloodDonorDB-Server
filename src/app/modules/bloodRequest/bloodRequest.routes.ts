@@ -12,7 +12,11 @@ router.post(
   validate(bloodRequestValidationSchema),
   bloodRequestControllers.createRequest,
 )
-router.get('/', auth('admin', 'donor'), bloodRequestControllers.getAllRequests)
+router.get(
+  '/',
+  auth('admin', 'donor', 'super-admin'),
+  bloodRequestControllers.getAllRequests,
+)
 router.get('/my-requests', auth('donor'), bloodRequestControllers.myRequests)
 router.put(
   '/my-requests/:requestId',
@@ -26,7 +30,7 @@ router.delete(
 )
 router.delete(
   '/:requestId',
-  auth('admin'),
+  auth('admin', 'super-admin'),
   bloodRequestControllers.deleteRequest,
 )
 

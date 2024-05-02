@@ -6,13 +6,17 @@ import { updateAdminValidationSchema } from './admin.validationSchema'
 
 const router = Router()
 
-router.get('/me', auth('admin'), adminControllers.profile)
+router.get('/me', auth('admin', 'super-admin'), adminControllers.profile)
 router.put(
   '/me',
-  auth('admin'),
+  auth('admin', 'super-admin'),
   validate(updateAdminValidationSchema),
   adminControllers.updateProfile,
 )
-router.delete('/me', auth('admin'), adminControllers.deleteProfile)
+router.delete(
+  '/me',
+  auth('admin', 'super-admin'),
+  adminControllers.deleteProfile,
+)
 
 export const adminRoutes = router

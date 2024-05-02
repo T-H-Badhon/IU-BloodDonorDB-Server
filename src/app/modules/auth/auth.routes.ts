@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { authControllers } from './auth.controllers'
 import auth from '../../middleware/Auth'
-import { checkSuperAdminCode } from '../../middleware/SuperAdminCheck'
+
 import validate from '../../middleware/ValidationFunction'
 import { userValidationSchema } from '../user/user.validationSchema'
 import { adminValidationSchema } from '../admin/admin.validationSchema'
@@ -16,7 +16,7 @@ const router = Router()
 
 router.post(
   '/registerAdmin',
-  checkSuperAdminCode,
+  auth('super-admin'),
   validate(userValidationSchema),
   validate(adminValidationSchema),
   authControllers.registerAdmin,

@@ -6,9 +6,9 @@ export type TPasswordHistory = {
 export type TUser = {
   email: string
   password: string
-  role: 'admin' | 'donor'
+  role: 'admin' | 'donor' | 'super-admin'
 
-  passwordChangeAT: Date
+  passwordChangeAT?: Date
   passwordHistory?: [TPasswordHistory]
-  isBlocked: boolean
+  isBlocked?: boolean
 }

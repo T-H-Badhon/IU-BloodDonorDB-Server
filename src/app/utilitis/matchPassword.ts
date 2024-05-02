@@ -1,4 +1,5 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
+
 export const matchPassword = async (
   password: string,
   hashedPassword: string,

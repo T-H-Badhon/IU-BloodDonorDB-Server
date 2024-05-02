@@ -20,7 +20,10 @@ const donorSchema = new Schema<TDonor>(
     },
     bloodGroup: {
       type: String,
-      enum: ['A+', 'B+', 'AB+', 'O+', 'A+', 'B+', 'AB+', 'O+'],
+      enum: {
+        values: ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'],
+        message: '{VALUE} is not an enum value',
+      },
       required: true,
     },
     area: {

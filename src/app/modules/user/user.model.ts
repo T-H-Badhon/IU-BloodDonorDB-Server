@@ -17,7 +17,7 @@ const userSchema = new Schema<TUser>(
     password: { type: String, required: true, select: 0 },
     role: {
       type: String,
-      enum: ['donor', 'admin'],
+      enum: ['donor', 'admin', 'super-admin'],
       required: true,
       default: 'donor',
     },
