@@ -84,7 +84,7 @@ const registerDonor = async (userData: TUser, donorData: TDonor) => {
     }
 
     donorData.userId = newUser[0]._id
-    console.log(donorData)
+
     const newDonor = await Donor.create([donorData], { session })
 
     if (!newDonor.length) {

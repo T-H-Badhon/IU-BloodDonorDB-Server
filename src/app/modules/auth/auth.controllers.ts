@@ -17,8 +17,6 @@ const registerAdmin = catchAsync(async (req, res) => {
 const registerDonor = catchAsync(async (req, res) => {
   const { userData, donorData } = req.body
 
-  console.log(donorData)
-
   const result = await authServices.registerDonor(userData, donorData)
 
   response(res, {

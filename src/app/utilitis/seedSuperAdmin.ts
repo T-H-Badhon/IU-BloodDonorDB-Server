@@ -12,8 +12,6 @@ export const seedSuperAdmin = async () => {
       role: 'super-admin',
     }
 
-    const seed = await User.create(superAdminData)
-
-    console.log(seed)
+    await User.create(superAdminData)
   }
 }
